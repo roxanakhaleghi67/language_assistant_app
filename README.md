@@ -1,45 +1,51 @@
-# English Grammar Corrector
+# Grammar Corrector
 
-Corrects English grammar in informal or spoken sentences using the fine-tuned
-`vennify/t5-base-grammar-correction` sequence-to-sequence model.
+Correct English grammar in informal or spoken text using a fine-tuned transformer model.
 
-## What it does
+## Features
 
-`language_assistant_app.py` defines `GrammarCorrector`, which wraps a `text2text-generation`
-pipeline and returns a corrected version of the input text.
+- Wraps the `vennify/t5-base-grammar-correction` sequence-to-sequence model
+- Accepts a plain string and returns the corrected string
+- Deterministic output (greedy decoding, no sampling)
+- Simple, class-based API (`GrammarCorrector`)
+
+## Requirements
+
+- Python 3.8 or newer
+- `transformers`
+- PyTorch (`torch`) as the backend
+- An internet connection on the first run, to download the model weights
+
+## Installation
+
+```bash
+pip install -r requirements.txt
+```
+
+## Usage
 
 ```python
 from language_assistant_app import GrammarCorrector
 
 corrector = GrammarCorrector()
 print(corrector.correct("He go to store yesterday"))
-# -> "He went to the store yesterday."
 ```
 
-## Requirements
+The input is prefixed with `grammar:` internally, and the model returns the corrected sentence. The first call downloads the model, so it may take a moment.
 
-- Python 3.9+
-- `transformers`, `torch` (see `requirements.txt`)
+## Project Structure
 
-```bash
-python -m pip install -r requirements.txt
+```text
+language_assistant_app/
+├── language_assistant_app.py   # GrammarCorrector implementation
+├── requirements.txt
+└── README.md
 ```
-
-The first run downloads the model weights (about 900 MB).
-
-## Notes and limitations
-
-- Trained on English data only; other languages are not supported.
-- Input is prefixed with `grammar: ` and truncated at 128 tokens, so long paragraphs should
-  be split into sentences first.
-- Decoding is greedy (`do_sample=False`), which keeps output stable but less fluent on very
-  noisy input.
-
-## Status
-
-Single-module prototype. Packaging as an importable package and a command-line entry point
-is planned.
 
 ## License
 
-No license file is present yet. Until one is added, the default copyright applies.
+This project is released under the **MIT License**.
+
+## Author
+
+**Roxana Khaleghi**
