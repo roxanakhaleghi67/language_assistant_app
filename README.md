@@ -1,5 +1,7 @@
 # Grammar Corrector
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) ![Python](https://img.shields.io/badge/python-3.8%2B-blue)
+
 Correct English grammar in informal or spoken text using a fine-tuned transformer model.
 
 ## Features
